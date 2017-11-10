@@ -32,8 +32,8 @@ export class AppBootstrapper {
     this.initializeConfigProvider();
   }
 
-  public async start(): Promise<void> {
-    await this.extensionBootstrapper.start();
+  public start(): Promise<void> {
+    return this.extensionBootstrapper.start();
   }
 
 }
