@@ -4,13 +4,13 @@ export class ConfigResolver extends Resolver<any, IInstanceWrapper<any>> {
 
   private processEngineConfiguration: any;
 
-  public constructor(processEngineConfiguration: any) {
+  constructor(processEngineConfiguration: any) {
     super();
     this.processEngineConfiguration = processEngineConfiguration;
   }
 
   public resolveConfig(configNamespace: Function | {} | string): any {
-    const configType: string = typeof configNamespace;
+    const configType = typeof configNamespace;
 
     if (configType === 'undefined') {
       return undefined;
@@ -24,16 +24,17 @@ export class ConfigResolver extends Resolver<any, IInstanceWrapper<any>> {
       return (configNamespace as Function)();
     }
 
-    const segments: Array<string> = (configNamespace as string).split(':');
-    let currentNode: any = this.processEngineConfiguration;
+    const segments = (configNamespace as string).split(':');
+    let currentNode = this.processEngineConfiguration;
 
     for (const segment of segments) {
       currentNode = currentNode[segment];
-      if (currentNode === undefined || currentNode === null) {
+      if (!currentNode) {
         return undefined;
       }
     }
 
     return currentNode;
   }
+
 }
