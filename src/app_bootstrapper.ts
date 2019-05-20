@@ -5,21 +5,20 @@ import {ConfigResolver} from './config_resolver';
 
 export class AppBootstrapper {
 
-  private _container: Container<IInstanceWrapper<any>>;
+  protected container: Container<IInstanceWrapper<any>>;
+
   private extensionBootstrapperFactory: IFactoryAsync<ExtensionBootstrapper>;
   private extensionBootstrapper: ExtensionBootstrapper;
   private processEngineConfiguration: any;
 
-  constructor(_container: Container<IInstanceWrapper<any>>,
-              extensionBootstrapperFactory: IFactoryAsync<ExtensionBootstrapper>,
-              processEngineConfiguration: any) {
-    this._container = _container;
+  constructor(
+    _container: Container<IInstanceWrapper<any>>,
+    extensionBootstrapperFactory: IFactoryAsync<ExtensionBootstrapper>,
+    processEngineConfiguration: any,
+  ) {
+    this.container = _container;
     this.extensionBootstrapperFactory = extensionBootstrapperFactory;
     this.processEngineConfiguration = processEngineConfiguration;
-  }
-
-  protected get container(): Container<IInstanceWrapper<any>> {
-    return this._container;
   }
 
   private initializeConfigProvider(): void {
